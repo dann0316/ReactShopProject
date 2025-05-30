@@ -51,6 +51,7 @@ function Detail(props) {
             clearTimeout(timer);
             divStart.classList.remove('end');
         };
+        
     },[tab])
 
     return (

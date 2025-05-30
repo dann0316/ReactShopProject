@@ -6,7 +6,7 @@ function Card(props) {
 
     return (
         <Nav.Link
-            className="col-md-4"
+            className="card"
             key={props.i}
             onClick={() => {
                 navigate(`/detail/${props.i}`);
@@ -28,7 +28,7 @@ function Card(props) {
             <img src={props.shoes[props.i].img} alt="이미지" width="80%" />
 
             {/* 이렇게도 할 수 있네 src = {'https://codingapple1.github.io/shop/shoes' +props.i +'jpg'} => 데이터 안건드려도 됨*/}
-            <h4>{props.shoes[props.i].title}</h4>
+            <h3>{props.shoes[props.i].title}</h3>
             <p>{props.shoes[props.i].content}</p>
             <p>{props.shoes[props.i].price}</p>
         </Nav.Link>
