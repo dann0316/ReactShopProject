@@ -2,7 +2,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
 
 function Card(props) {
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     return (
         <Nav.Link

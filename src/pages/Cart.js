@@ -1,27 +1,37 @@
 import Table from "react-bootstrap/Table";
 import { useSelector, useDispatch } from "react-redux";
-import { addCount, sortProduct, reverseSortProduct, deleteProduct } from "../store.js";
+import {
+    addCount,
+    sortProduct,
+    reverseSortProduct,
+    deleteProduct,
+} from "../store.js";
 
 function Cart() {
     const data = useSelector((state) => state.data);
     const dispatch = useDispatch();
 
     return (
-        <>
-            <button
-                onClick={() => {
-                    dispatch(sortProduct("name"));
-                }}
-            >
-                정렬
-            </button>
-            <button
-                onClick={() => {
-                    dispatch(reverseSortProduct("name"));
-                }}
-            >
-                역정렬
-            </button>
+        <div className="container">
+            <div className="cart-btn-container">
+                <button
+                    className="btn"
+                    onClick={() => {
+                        dispatch(sortProduct("name"));
+                    }}
+                >
+                    정렬
+                </button>
+                <button
+                    className="btn"
+                    onClick={() => {
+                        dispatch(reverseSortProduct("name"));
+                    }}
+                >
+                    역정렬
+                </button>
+            </div>
+
             <Table>
                 <thead>
                     <tr>
@@ -52,7 +62,7 @@ function Cart() {
                                     <button
                                         onClick={(e) => {
                                             console.log(item.id);
-                                            dispatch((deleteProduct(item.id)))
+                                            dispatch(deleteProduct(item.id));
                                         }}
                                     >
                                         🗑️
@@ -63,7 +73,7 @@ function Cart() {
                     })}
                 </tbody>
             </Table>
-        </>
+        </div>
     );
 }
 

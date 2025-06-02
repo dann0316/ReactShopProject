@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addProduct } from "../store.js";
 
 function Detail(props) {
-    let [count, setCount] = useState(0);
+
     let [removeDiv, setRemoveDiv] = useState(true);
     let { id } = useParams();
     let findProduct = props.shoes.find((a) => a.id === id);
@@ -28,6 +28,7 @@ function Detail(props) {
         return () => clearTimeout(timeoutId);
     }, []);
 
+    // useEffect 학습용 input
     useEffect(() => {
         if (input !== "" && isNaN(input)) {
             alert("숫자만 입력해주세요.");
@@ -39,6 +40,7 @@ function Detail(props) {
     const userEvent = () => {
         clearTimeout(timeoutId);
         console.log("User's Event Detected!");
+        alert('축하드립니다! 할인 쿠폰 드립니다!');
     };
 
     useEffect(() => {
@@ -56,40 +58,35 @@ function Detail(props) {
 
     return (
         <div className="container">
+            
+            {/* Detail 페이지 방문 후 2초 지나면 위 div 숨기기 */}
             {removeDiv ? (
-                <div onClick={userEvent} className="alert alert-warning">
+                <div onClick={userEvent} className="alert alert-warning text-center">
                     2초 이내 클릭시 할인
                 </div>
             ) : null}
 
-            {/* Detail 페이지 방문 후 2초 지나면 위 div 숨기기 */}
-            {count}
-            <button
-                onClick={() => {
-                    setCount(count++);
-                }}
-            >
-                버튼
-            </button>
             <div className="row">
                 <div className="col-md-6">
-                    <img src={props.shoes[id].img} width="100%" />
+                    <img src={props.shoes[id]?.img} alt="shoe img" width="100%" />
                 </div>
                 <div className="col-md-6">
-                    <input
+                    {/* useEffect 학습용 input */}
+                    {/* <input
                         type="text"
-                        // value={input} 이게 왜 있지?
+                        value={input}
                         onChange={(e) => setInput(e.target.value)}
                         placeholder="숫자만 입력하세요"
-                    />
-                    {props.shoes[id].title}
-                    <h4 className="pt-5">{props.shoes[id].title}</h4>
-                    <p>{props.shoes[id].content}</p>
-                    <p>{props.shoes[id].price}원</p>
+                    /> */}
+                    <h4 className="pt-5">{props.shoes[id]?.title}</h4>
+                    <p>{props.shoes[id]?.content}</p>
+                    <p>{props.shoes[id]?.price}원</p>
                     <button className="btn btn-danger" onClick={() => {
-                        console.log(props.shoes[id])
-                        dispatch(addProduct(props.shoes[id]));
-                    }}>장바구니에 담기</button>
+                        console.log(props?.shoes[id])
+                        dispatch(addProduct(props?.shoes[id]));
+                    }}>
+                        장바구니에 담기
+                    </button>
                 </div>
             </div>
             <Nav justify variant="tabs" defaultActiveKey="link-0">

@@ -6,9 +6,9 @@ const Header = () => {
     let navigate = useNavigate();
     
     return (
-        <Navbar bg="dark" data-bs-theme="dark" id="header">
+        <Navbar bg="#6a7466" data-bs-theme="dark" id="header">
                 <Container>
-                    <Navbar.Brand href="/">ShoppingMall</Navbar.Brand>
+                    <Navbar.Brand href="/">Shoe Market</Navbar.Brand>
                     <Nav className="me-auto">
                         <Nav.Link
                             onClick={() => {
