@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
 import Card from "../components/Card.js";
 import { Button } from "react-bootstrap";
+import MainBanner from "../components/MainBanner.js";
+import { useNavigate } from "react-router-dom";
 
 const Home = ({ shoes, setShoes }) => {
-
     // 더 보기 카운트 state
     let [count, setCount] = useState(0);
     // 더 보기 상품 없음 state
@@ -13,36 +14,58 @@ const Home = ({ shoes, setShoes }) => {
     // 더 보기 시 로딩 state
     const [loading, setLoading] = useState(false);
 
+    const [watchedItems, setWatchedItems] = useState([]);
     // 최근 본 상품 진열대
     useEffect(() => {
-    if (!localStorage.getItem("watched")) {
-        localStorage.setItem("watched", JSON.stringify([]));
-    }
-}, []);
+        const watched = JSON.parse(localStorage.getItem("watched")) || [];
+        setWatchedItems(watched);
+
+        // 미니 장바구니
+        if (!localStorage.getItem("cart")) {
+            localStorage.setItem("cart", JSON.stringify([]));
+        }
+    }, []);
+
+    const removeFromWatched = (id) => {
+        const updated = watchedItems.filter((item) => item.id !== id);
+        localStorage.setItem("watched", JSON.stringify(updated));
+        setWatchedItems(updated);
+    };
+
+    // navigate 변수
+    const navigate = useNavigate();
 
     return (
         <div className="home-container">
-            
-            <div className="bg-container">
-
-                <div className="bg-img"></div>
-            </div>
+            {/* Main Banner */}
+            <MainBanner />
 
             <div className="latest-container">
-                <h4>최근 본 상품</h4>
+                <h4 className="latest-heading">최근 본 상품</h4>
                 {/* // localStorage에 내가 들어간 페이지의 id에 해당하는 상품 넣어주면 됨 */}
                 {(localStorage.getItem("watched")
                     ? JSON.parse(localStorage.getItem("watched"))
                     : []
                 ).map((item, index) => {
                     return (
-                        <div key={index} className="latest-inner-container">
-                            <img
-                                src={item.img}
-                                alt={item.title}
-                                width="10%"
-                            />
+                        <div
+                            key={index}
+                            className="latest-inner-container"
+                            onClick={() => {
+                                navigate(`/detail/${item.id}`);
+                            }}
+                        >
+                            <img src={item.img} alt="" width="30%" />
                             <p>{item.title}</p>
+                            <button
+                                className="remove-btn"
+                                onClick={(e) => {
+                                    e.stopPropagation(); // 상위 div 클릭 방지 이거 정리
+                                    removeFromWatched(item.id); // ❗ 삭제 함수 실행
+                                }}
+                            >
+                                DEL
+                            </button>
                         </div>
                     );
                 })}
@@ -54,6 +77,7 @@ const Home = ({ shoes, setShoes }) => {
                 })}
             </div>
             <Button
+                className="btn"
                 onClick={() => {
                     if (isDone) return;
 
