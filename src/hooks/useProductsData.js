@@ -1,40 +1,50 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const useProductsData = ({setShoes}) => {
+export const useProductsData = () => {
+    const [products, setProducts] = useState([]);
+    const [visibleCount, setVisibleCount] = useState(6);
 
-        // 더 보기 카운트 state
-    const [count, setCount] = useState(0);
-    // 더 보기 상품 없음 state
     const [isDone, setIsDone] = useState(false);
-    // 더 보기 시 로딩 state
     const [loading, setLoading] = useState(false);
-
     const [error, setError] = useState(null);
 
-    // 최근 본 상품 진열대
-
-    // 복잡한 로직 -> async/await + try ... catch 직관적 방식으로 에러처리
-    // 간단한 로직 -> .then().catch() -> 전통적인 Promise 방식으로 에러 처리
-
-    const fetchshoeData = async (i) => {
+    const fetchData = async () => {
         setLoading(true);
-
         try {
-            const res = await axios.get(
-                `https://codingapple1.github.io/shop/data${i}.json`
-            );
-
-            // 기존 shoe state에 새 데이터 추가
-            setShoes((arr) => [...arr, ...res.data]);
+            const res = await axios.get("https://fakestoreapi.com/products");
+            setProducts(res.data);
         } catch (err) {
-            console.error("Error: ", err);
-            console.log(error);
             setError(err);
+            console.error("Error fetching products:", err);
         } finally {
             setLoading(false);
         }
     };
 
-    return { loading, setLoading, count, setCount, isDone, setIsDone, fetchshoeData }
-}
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const handleLoadMore = () => {
+
+        const newCount = visibleCount + 3;
+        
+        if (newCount >= products.length) {
+            setVisibleCount(products.length);
+            setIsDone(true);
+        } else {
+            setVisibleCount(newCount);
+        }
+    };
+
+    const visibleProducts = products.slice(0, visibleCount);
+
+    return {
+        visibleProducts,
+        loading,
+        error,
+        isDone,
+        handleLoadMore,
+    };
+};

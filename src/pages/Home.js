@@ -1,18 +1,14 @@
-import Spinner from "react-bootstrap/Spinner";
+import { Button, Spinner } from "react-bootstrap";
 import Card from "../components/Card.js";
-import { Button } from "react-bootstrap";
 import LastestBanner from "../components/LatestBanner.js";
-import { useProductsData } from '../hooks/useProductsData.js'
-import { useState } from "react";
+import { useProductsData } from "../hooks/useProductsData.js";
 
-const Home = ({shoes, setShoes}) => {
-
-    const { loading, setLoading, count, setCount, isDone, setIsDone, fetchshoeData } = useProductsData({ setShoes });
+const Home = () => {
+    const { visibleProducts, loading, error, isDone, handleLoadMore } =
+        useProductsData();
 
     return (
         <div className="home-container">
-
-            {/* Main Banner */}
             <div className="bg-container">
                 <div className="bg-img"></div>
             </div>
@@ -20,31 +16,19 @@ const Home = ({shoes, setShoes}) => {
             <LastestBanner />
 
             <div className="card-container">
-                {shoes.map((a, i) => {
-                    return <Card i={i} key={i} shoes={shoes} />;
-                })}
+                {visibleProducts.map((a, i) => (
+                    <Card key={i} i={i} data={a} />
+                ))}
             </div>
 
+            {error && (
+                <p style={{ color: "red" }}>에러 발생: {error.message}</p>
+            )}
+
             <Button
-                className={`btn
-                    ${isDone ? "cursor-not-allowed" : "cursor-pointer"}
-                    `}
-                onClick={() => {
-                    if (isDone) return;
-
-                    setLoading(true);
-                    setCount(count + 1);
-
-                    if (count === 0) {
-                        setLoading(true);
-                        fetchshoeData(2);
-                    } else if (count === 1) {
-                        setLoading(true);
-                        fetchshoeData(3);
-                        setIsDone(true);
-                    }
-
-                }}
+                className={`btn ${isDone ? "cursor-not-allowed" : "cursor-pointer"}`}
+                onClick={handleLoadMore}
+                disabled={loading || isDone}
             >
                 {isDone ? (
                     "더 이상 상품 없음"

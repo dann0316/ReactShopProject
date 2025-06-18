@@ -39,18 +39,15 @@
 /* Header */
 #header {
   width: 100%;
-  background-color: #6a7466;
+  background-color: #6a7466e3;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 /* Home */
 .home-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: start;
-  width: 100%;
-  height: 100vh;
-  gap: 2rem;
+  @apply flex flex-col items-center justify-start w-[100vw] h-auto gap-8
 }
 
 /* Main Banner */
