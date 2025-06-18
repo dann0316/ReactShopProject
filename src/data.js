@@ -25,4 +25,3 @@ const data = [
 ];
 
 export default data;
-// 여러개면 export {ㅁㄴㅇㄹ,ㅁㄴㅇㄹ,ㅁㄴㅇㄹ}

@@ -1,4 +1,22 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+// import data2 from './data'
+
+// const product = createSlice({
+//   name: 'shoes',
+//   initialState: {
+//     list: data2, // 초기 데이터
+//     isDone: false,
+//     loading: false,
+//   },
+//   reducers: {
+//     addShoes: (state, action) => {
+//       state.list = [...state.list, ...action.payload];
+//     },
+//   },
+// });
+
+// export const { }
+
 
 const user = createSlice({
   name: "user",
