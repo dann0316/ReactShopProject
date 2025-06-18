@@ -3,18 +3,19 @@ import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
 import Card from "../components/Card.js";
 import { Button } from "react-bootstrap";
-import MainBanner from "../components/MainBanner.js";
+// import MainBanner from "../components/MainBanner.js";
 import { useNavigate } from "react-router-dom";
 
 const Home = ({ shoes, setShoes }) => {
     // 더 보기 카운트 state
-    let [count, setCount] = useState(0);
+    const [count, setCount] = useState(0);
     // 더 보기 상품 없음 state
     const [isDone, setIsDone] = useState(false);
     // 더 보기 시 로딩 state
     const [loading, setLoading] = useState(false);
 
     const [watchedItems, setWatchedItems] = useState([]);
+
     // 최근 본 상품 진열대
     useEffect(() => {
         const watched = JSON.parse(localStorage.getItem("watched")) || [];
@@ -27,8 +28,10 @@ const Home = ({ shoes, setShoes }) => {
     }, []);
 
     const removeFromWatched = (id) => {
+
         const updated = watchedItems.filter((item) => item.id !== id);
         localStorage.setItem("watched", JSON.stringify(updated));
+
         setWatchedItems(updated);
     };
 
@@ -38,7 +41,12 @@ const Home = ({ shoes, setShoes }) => {
     return (
         <div className="home-container">
             {/* Main Banner */}
-            <MainBanner />
+            {/* <MainBanner /> */}
+            <div className="bg-container">
+                <div className="bg-img">
+
+                </div>
+            </div>
 
             <div className="latest-container">
                 <h4 className="latest-heading">최근 본 상품</h4>
@@ -60,7 +68,7 @@ const Home = ({ shoes, setShoes }) => {
                             <button
                                 className="remove-btn"
                                 onClick={(e) => {
-                                    e.stopPropagation(); // 상위 div 클릭 방지 이거 정리
+                                    e.stopPropagation(); // 상위 div 클릭 방지 이거 이벤트 버블링인가
                                     removeFromWatched(item.id); // ❗ 삭제 함수 실행
                                 }}
                             >
