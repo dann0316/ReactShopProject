@@ -1,9 +1,15 @@
 // import { type } from "@testing-library/user-event/dist/type";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addProduct } from "../store.js";
 import { useProductsData } from "../hooks/useProductsData.js";
 import Modal from "../components/Modal.js";
 import { useDetailData } from "../hooks/useDetailData.js";
+import {
+    Tabs,
+    TabsContent,
+    TabsList,
+    TabsTrigger,
+} from "../components/ui/tabs";
 
 const Detail = () => {
     // 커스텀 훅에서 products로 데이터 가져오기
@@ -21,7 +27,6 @@ const Detail = () => {
     const productPrice = product?.price;
 
     // Redux store.js에서 가져온 것
-    const stock = useSelector((state) => state.stock);
     const dispatch = useDispatch();
 
     // useEffect 학습용 input
@@ -64,12 +69,11 @@ const Detail = () => {
 
     return (
         <div className="container py-40">
-            
             {/* Modal Section */}
             {modal ? (
                 <Modal
-                event = {userEvent}
-                content={`${countDown}초 이내 클릭 시 할인!!`}
+                    event={userEvent}
+                    content={`${countDown}초 이내 클릭 시 할인!!`}
                 />
             ) : null}
 
@@ -97,6 +101,19 @@ const Detail = () => {
                     </button>
                 </div>
             </div>
+
+            <Tabs defaultValue="tab0" className="w-[400px]">
+                <TabsList>
+                    <TabsTrigger value="tab0" className="text-2xl font-semibold px-2 py-1 border border-[#9baa95]">Tab 0</TabsTrigger>
+                    <TabsTrigger value="tab1" className="text-2xl font-semibold">Tab 1</TabsTrigger>
+                </TabsList>
+                <TabsContent value="tab0">
+                    Tab0 - Content0
+                </TabsContent>
+                <TabsContent value="tab1">
+                    Tab1 - Content1
+                </TabsContent>
+            </Tabs>
 
             {/* <Nav justify variant="tabs" defaultActiveKey="link-0">
                 <Nav.Item>
@@ -138,16 +155,15 @@ const Detail = () => {
 };
 
 export default Detail;
-//컴포넌트마다 key prop이 있는건 뭐였더라
 
-function TabContent(props) {
-    return (
-        <div className="start">
-            {
-                [<div>내용 0</div>, <div>내용 1</div>, <div>내용 2</div>][
-                    props.tab
-                ]
-            }
-        </div>
-    );
-}
+// function TabContent(props) {
+//     return (
+//         <div className="start">
+//             {
+//                 [<div>내용 0</div>, <div>내용 1</div>, <div>내용 2</div>][
+//                     props.tab
+//                 ]
+//             }
+//         </div>
+//     );
+// }

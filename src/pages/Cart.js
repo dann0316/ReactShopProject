@@ -11,7 +11,7 @@ function Cart() {
   const dispatch = useDispatch();
 
   return (
-    <div className="container">
+    <div className="container py-40">
       <div className="cart-btn-container">
         <button
           className="btn"
