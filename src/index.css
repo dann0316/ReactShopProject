@@ -5,11 +5,12 @@
 
 /* Optional: 글로벌 스타일 설정 (실무에서 자주 등장) */
 html,
-body {
-  @apply bg-gray-50 text-gray-900 antialiased;
-  font-family:
+body,
+{
+  @apply bg-gray-50 text-gray-900 antialiased overflow-x-hidden;
+  /* font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif; */
 }
 
 /* a {

@@ -1,112 +1,149 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { type } from "@testing-library/user-event/dist/type";
+// import { type } from "@testing-library/user-event/dist/type";
 import { useSelector, useDispatch } from "react-redux";
 import { addProduct } from "../store.js";
 import { useProductsData } from "../hooks/useProductsData.js";
+import Modal from "../components/Modal.js";
 
-function Detail() {
-
+const Detail = () => {
+    // 커스텀 훅에서 products로 데이터 가져오기
     const { products } = useProductsData();
 
-    let [removeDiv, setRemoveDiv] = useState(true);
+    // 할인 모달 state
+    const [modal, setModal] = useState(true);
+
+    // countDown state
+    const [countDown, setCountDown] = useState(5);
+
+    // 훅으로 url 파라미터 가져오기
     const { id } = useParams();
-    console.log(id);
-    
-    const productImg = products.find((a) => a.id === Number(id))?.image;
-    const productTitle = products.find((a) => a.id === Number(id))?.title;
-    const productDes = products.find((a) => a.id === Number(id))?.description;
-    const productPrice = products.find((a) => a.id === Number(id))?.price;
 
+    // products 중 지금 디테일 페이지에 보여줌 상품 id 찾기
+    const product = products.find((a) => a.id === Number(id));
 
+    // ??은 뭐였지
+    const productImg = product?.image;
+    const productTitle = product?.title;
+    const productDes = product?.description;
+    const productPrice = product?.price;
 
-    // let findProduct = props.shoes.find((a) => a.id === id);
-    let [input, setInput] = useState("");
-    const [tab, setTab] = useState(0);
+    // modal 5초 뒤에 없애는 함수
+    const removeModal = () => {
+        setTimeout(() => {
+            setModal(false);
+        }, 5000);
+    };
 
-    let timeoutId;
+    // 5초 카운트 하는 함수
+    const fiveCountDown = () => {
+        setInterval(() => {
+            setCountDown((prev) => {
+                if (prev <= 1) {
+                    clearInterval(fiveCountDown);
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+    };
 
+    // 페이지 마운트 시 한번
+    useEffect(() => {
+        removeModal();
+        fiveCountDown();
+
+        return () => {
+            clearTimeout(removeModal);
+            clearInterval(fiveCountDown);
+        };
+    }, []);
+
+    // user클릭시 알림 함수
+    const userEvent = () => {
+        clearTimeout(removeModal);
+        alert("축하드립니다! 할인 쿠폰 드립니다!");
+        setModal(false);
+    };
+
+    // Redux store.js에서 가져온 것
     const stock = useSelector((state) => state.stock);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        // setRemoveDiv(true); 이렇게 해야 생기지 의존성 배열이 [count]면은
-        timeoutId = setTimeout(() => {
-            setRemoveDiv(false);
-        }, 2000);
-
-        return () => clearTimeout(timeoutId);
-    }, []);
-
     // useEffect 학습용 input
-    useEffect(() => {
-        if (input !== "" && isNaN(input)) {
-            alert("숫자만 입력해주세요.");
-        }
+    // const [input, setInput] = useState("");
+    // useEffect(() => {
+    //     if (input !== "" && isNaN(input)) {
+    //         alert("숫자만 입력해주세요.");
+    //     }
+    //     return () => setInput(""); //cleanup 함수 원래 input value
+    // }, [input]);
 
-        return () => setInput(""); //cleanup 함수 원래 input value
-    }, [input]);
+    // 탭 UI 내용 애니메이션
+    // useEffect(() => {
+    //     const divStart = document.querySelector(".start");
+    //     const timer = setTimeout(() => {
+    //         divStart.classList.add("end");
+    //     }, 100);
 
-    const userEvent = () => {
-        clearTimeout(timeoutId);
-        console.log("User's Event Detected!");
-        alert("축하드립니다! 할인 쿠폰 드립니다!");
-    };
+    //     return () => {
+    //         clearTimeout(timer);
+    //         divStart.classList.remove("end");
+    //     };
+    // }, [tab]);
 
-    useEffect(() => {
-        const divStart = document.querySelector(".start");
-        const timer = setTimeout(() => {
-            divStart.classList.add("end");
-        }, 100);
+    // 상품이 없는 것 -> 에러, 오는 중
+    // 상품이 있는 것 -> 랜더링
 
-        return () => {
-            clearTimeout(timer);
-            divStart.classList.remove("end");
-        };
-    }, [tab]);
+    // 이건 오는 중
+    if (!product) {
+        return (
+            <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
+                <h4 className="text-3xl font-extrabold text-white">
+                    Loading...
+                </h4>
+            </div>
+        );
+    }
+
+    // 옵셔널 체이닝은 안전하지만, JSX 내부에서 null 객체의 속성을 사용하려고 하면 여전히 렌더링 중 오류 발생 가능 그리고 Hook 이전에 early return 조건문이 있으면 React가 컴포넌트를 예측 못해서 에러 발생 이거 때문에 if return을 맨 아래 두는 거구나
 
     return (
-        <div className="container">
-            {/* Detail 페이지 방문 후 2초 지나면 위 div 숨기기 */}
-            {removeDiv ? (
-                <div
-                    onClick={userEvent}
-                    className="alert alert-warning text-center"
-                >
-                    2초 이내 클릭시 할인
-                </div>
+        <div className="container py-40">
+            
+            {/* Modal Section */}
+            {modal ? (
+                <Modal
+                event = {userEvent}
+                content={`${countDown}초 이내 클릭 시 할인!!`}
+                />
             ) : null}
 
-            <div className="row">
-                <div className="col-md-6">
+            {/* Product Detail Section */}
+            <div className="w-3/5 border border-[#9baa95] rounded-3xl flex flex-row justify-between p-10 gap-10">
+                <div className="w-1/3 flex-row-center border border-[#9baa95] rounded-3xl p-10">
                     <img
                         src={productImg}
-                        alt="shoe img"
-                        width="100%"
+                        alt="product-img"
+                        className="h-80 w-auto"
                     />
                 </div>
-                <div className="col-md-6">
-                    {/* useEffect 학습용 input */}
-                    {/* <input
-                        type="text"
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        placeholder="숫자만 입력하세요"
-                    /> */}
-                    <h4 className="pt-5">{productTitle}</h4>
+
+                <div className="w-2/3 flex-col-center gap-5">
+                    <h4 className="text-3xl font-semibold">{productTitle}</h4>
                     <p>{productDes}</p>
-                    <p>{productPrice}$</p>
+                    <p className="text-xl font-medium">{productPrice} $</p>
                     <button
-                        className="btn btn-danger"
+                        className="btn p-5 hover-transition"
                         onClick={() => {
-                            console.log(products.id);
-                            dispatch(addProduct(products.id));
+                            dispatch(addProduct(product));
                         }}
                     >
                         장바구니에 담기
                     </button>
                 </div>
             </div>
+
             {/* <Nav justify variant="tabs" defaultActiveKey="link-0">
                 <Nav.Item>
                     <Nav.Link
@@ -144,7 +181,7 @@ function Detail() {
             <TabContent tab={tab} /> */}
         </div>
     );
-}
+};
 
 export default Detail;
 //컴포넌트마다 key prop이 있는건 뭐였더라
