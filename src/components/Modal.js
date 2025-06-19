@@ -4,7 +4,7 @@ const Modal = ({ event, content }) => {
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
             <div
                 onClick={event}
-                className="w-1/4 flex-row-center border border-[#9baa95] btn bg-white p-6 rounded-xl shadow-lg"
+                className="w-1/4 flex-row-center border border-[#9baa95] btn bg-white p-6 rounded-xl shadow-lg cursor-pointer"
             >
                 {content}
             </div>

@@ -1,23 +1,15 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 // import { type } from "@testing-library/user-event/dist/type";
 import { useSelector, useDispatch } from "react-redux";
 import { addProduct } from "../store.js";
 import { useProductsData } from "../hooks/useProductsData.js";
 import Modal from "../components/Modal.js";
+import { useDetailData } from "../hooks/useDetailData.js";
 
 const Detail = () => {
     // 커스텀 훅에서 products로 데이터 가져오기
     const { products } = useProductsData();
 
-    // 할인 모달 state
-    const [modal, setModal] = useState(true);
-
-    // countDown state
-    const [countDown, setCountDown] = useState(5);
-
-    // 훅으로 url 파라미터 가져오기
-    const { id } = useParams();
+    const { modal, countDown, id, userEvent } = useDetailData();
 
     // products 중 지금 디테일 페이지에 보여줌 상품 id 찾기
     const product = products.find((a) => a.id === Number(id));
@@ -27,44 +19,6 @@ const Detail = () => {
     const productTitle = product?.title;
     const productDes = product?.description;
     const productPrice = product?.price;
-
-    // modal 5초 뒤에 없애는 함수
-    const removeModal = () => {
-        setTimeout(() => {
-            setModal(false);
-        }, 5000);
-    };
-
-    // 5초 카운트 하는 함수
-    const fiveCountDown = () => {
-        setInterval(() => {
-            setCountDown((prev) => {
-                if (prev <= 1) {
-                    clearInterval(fiveCountDown);
-                    return 0;
-                }
-                return prev - 1;
-            });
-        }, 1000);
-    };
-
-    // 페이지 마운트 시 한번
-    useEffect(() => {
-        removeModal();
-        fiveCountDown();
-
-        return () => {
-            clearTimeout(removeModal);
-            clearInterval(fiveCountDown);
-        };
-    }, []);
-
-    // user클릭시 알림 함수
-    const userEvent = () => {
-        clearTimeout(removeModal);
-        alert("축하드립니다! 할인 쿠폰 드립니다!");
-        setModal(false);
-    };
 
     // Redux store.js에서 가져온 것
     const stock = useSelector((state) => state.stock);
