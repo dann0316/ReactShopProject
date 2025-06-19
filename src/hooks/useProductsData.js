@@ -29,7 +29,7 @@ export const useProductsData = () => {
     const handleLoadMore = () => {
 
         const newCount = visibleCount + 3;
-        
+
         if (newCount >= products.length) {
             setVisibleCount(products.length);
             setIsDone(true);
@@ -46,5 +46,6 @@ export const useProductsData = () => {
         error,
         isDone,
         handleLoadMore,
+        products
     };
 };

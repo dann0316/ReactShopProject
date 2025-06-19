@@ -1,14 +1,26 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { type } from "@testing-library/user-event/dist/type";
-import Nav from "react-bootstrap/Nav";
 import { useSelector, useDispatch } from "react-redux";
 import { addProduct } from "../store.js";
+import { useProductsData } from "../hooks/useProductsData.js";
 
-function Detail(props) {
+function Detail() {
+
+    const { products } = useProductsData();
+
     let [removeDiv, setRemoveDiv] = useState(true);
-    let { id } = useParams();
-    let findProduct = props.shoes.find((a) => a.id === id);
+    const { id } = useParams();
+    console.log(id);
+    
+    const productImg = products.find((a) => a.id === Number(id))?.image;
+    const productTitle = products.find((a) => a.id === Number(id))?.title;
+    const productDes = products.find((a) => a.id === Number(id))?.description;
+    const productPrice = products.find((a) => a.id === Number(id))?.price;
+
+
+
+    // let findProduct = props.shoes.find((a) => a.id === id);
     let [input, setInput] = useState("");
     const [tab, setTab] = useState(0);
 
@@ -68,7 +80,7 @@ function Detail(props) {
             <div className="row">
                 <div className="col-md-6">
                     <img
-                        src={props.shoes[id]?.img}
+                        src={productImg}
                         alt="shoe img"
                         width="100%"
                     />
@@ -81,21 +93,21 @@ function Detail(props) {
                         onChange={(e) => setInput(e.target.value)}
                         placeholder="숫자만 입력하세요"
                     /> */}
-                    <h4 className="pt-5">{props.shoes[id]?.title}</h4>
-                    <p>{props.shoes[id]?.content}</p>
-                    <p>{props.shoes[id]?.price}원</p>
+                    <h4 className="pt-5">{productTitle}</h4>
+                    <p>{productDes}</p>
+                    <p>{productPrice}$</p>
                     <button
                         className="btn btn-danger"
                         onClick={() => {
-                            console.log(props?.shoes[id]);
-                            dispatch(addProduct(props?.shoes[id]));
+                            console.log(products.id);
+                            dispatch(addProduct(products.id));
                         }}
                     >
                         장바구니에 담기
                     </button>
                 </div>
             </div>
-            <Nav justify variant="tabs" defaultActiveKey="link-0">
+            {/* <Nav justify variant="tabs" defaultActiveKey="link-0">
                 <Nav.Item>
                     <Nav.Link
                         eventKey="link-0"
@@ -129,7 +141,7 @@ function Detail(props) {
                     </Nav.Link>
                 </Nav.Item>
             </Nav>
-            <TabContent tab={tab} />
+            <TabContent tab={tab} /> */}
         </div>
     );
 }

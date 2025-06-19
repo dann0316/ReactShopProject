@@ -1,21 +1,20 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { Button, Container, Nav, Navbar } from "react-bootstrap";
+import {  useNavigate } from "react-router-dom";
 
 function Card({data, i}) {
     const navigate = useNavigate();
 
     return (
-        <Nav.Link
+        <div
             className="card"
             onClick={() => {
-                navigate(`/detail/${data.i}`);
+                navigate(`/detail/${data.id}`);
                 // localStorage에 넣어주는 것
                 let arr = JSON.parse(localStorage.getItem("watched"));
                 // 중복 싫으면 Set자료형 쓰면 됨. => 집합
                 // 안에 없으면 넣고
                 if (
                     !arr.some(
-                        (item) => item.title === data.i.title
+                        (item) => item.title === data.title
                     )
                 ) {
                     arr.push(data.i);
@@ -23,10 +22,10 @@ function Card({data, i}) {
                 } else {
                     // 있으면 앞에건 없애고 넣기
                     const index = arr.findIndex(
-                        (item) => item.title === data.i.title
+                        (item) => item.title === data.title
                     );
                     arr.splice(index, 1);
-                    arr.push(data.i);
+                    arr.push(data.id);
                     localStorage.setItem("watched", JSON.stringify(arr));
                 }
             }}
@@ -47,7 +46,7 @@ function Card({data, i}) {
     : data?.description}
 </p>
             <p>{data.price}</p>
-        </Nav.Link>
+        </div>
     );
 }
 

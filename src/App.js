@@ -1,5 +1,4 @@
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes,Route } from "react-router-dom";
 //index.js에서도 추가할 게 있음 그건 react 디렉토리 구조랑 react 라이브러리 사용법에 따라 다른가?
 import Detail from "./pages/Detail.js";

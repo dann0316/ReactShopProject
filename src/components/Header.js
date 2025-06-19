@@ -1,37 +1,25 @@
 import { useNavigate } from "react-router-dom";
-import { Container, Nav, Navbar } from "react-bootstrap";
 
 const Header = () => {
-  let navigate = useNavigate();
+    const navigate = useNavigate();
+    const headerArr = ["home", "cart"];
 
-  return (
-    <Navbar bg="#6a7466" data-bs-theme="dark" id="header">
-      <Container>
-        <Navbar.Brand href="/">Shoe Market</Navbar.Brand>
-        <Nav className="me-auto">
-          <Nav.Link
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            Home
-          </Nav.Link>
-
-          <Nav.Link
-            onClick={() => {
-              navigate("/cart");
-            }}
-          >
-            Cart
-          </Nav.Link>
-        </Nav>
-        {/* <Link to={"./detail"}>Detail</Link>
-                    <Nav.Link href="./detail" style={{ color: "white" }}>
-                        Detail2
-                    </Nav.Link> */}
-      </Container>
-    </Navbar>
-  );
+    return (
+        <header className="fixed w-full bg-[#6a7466e3] top-0 left-0">
+            {headerArr.map((a, i) => {
+                return (
+                    <div
+                        key={i}
+                        onClick={() => {
+                            a === "cart" ? navigate("/cart") : navigate("/");
+                        }}
+                    >
+                        {a}
+                    </div>
+                );
+            })}
+        </header>
+    );
 };
 
 export default Header;

@@ -1,4 +1,3 @@
-import Table from "react-bootstrap/Table";
 import { useSelector, useDispatch } from "react-redux";
 import {
   addCount,
@@ -32,7 +31,7 @@ function Cart() {
         </button>
       </div>
 
-      <Table>
+      <table>
         <thead>
           <tr>
             <th>#</th>
@@ -72,7 +71,7 @@ function Cart() {
             );
           })}
         </tbody>
-      </Table>
+      </table>
     </div>
   );
 }

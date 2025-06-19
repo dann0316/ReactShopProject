@@ -1,4 +1,3 @@
-import { Button, Spinner } from "react-bootstrap";
 import Card from "../components/Card.js";
 import LastestBanner from "../components/LatestBanner.js";
 import { useProductsData } from "../hooks/useProductsData.js";
@@ -25,7 +24,7 @@ const Home = () => {
                 <p style={{ color: "red" }}>에러 발생: {error.message}</p>
             )}
 
-            <Button
+            <button
                 className={`btn ${isDone ? "cursor-not-allowed" : "cursor-pointer"}`}
                 onClick={handleLoadMore}
                 disabled={loading || isDone}
@@ -33,11 +32,11 @@ const Home = () => {
                 {isDone ? (
                     "더 이상 상품 없음"
                 ) : loading ? (
-                    <Spinner animation="border" size="sm" role="status" />
+                    <div className="animate-spin rounded-full h-8 w-8 border-4 border-t-transparent border-blue-500"></div>
                 ) : (
                     "더 보기"
                 )}
-            </Button>
+            </button>
         </div>
     );
 };
