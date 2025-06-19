@@ -2,50 +2,49 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 export const useProductsData = () => {
-    const [products, setProducts] = useState([]);
-    const [visibleCount, setVisibleCount] = useState(6);
+  const [products, setProducts] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(6);
 
-    const [isDone, setIsDone] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+  const [isDone, setIsDone] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-    const fetchData = async () => {
-        setLoading(true);
-        try {
-            const res = await axios.get("https://fakestoreapi.com/products");
-            setProducts(res.data);
-        } catch (err) {
-            setError(err);
-            console.error("Error fetching products:", err);
-        } finally {
-            setLoading(false);
-        }
-    };
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get("https://fakestoreapi.com/products");
+      setProducts(res.data);
+    } catch (err) {
+      setError(err);
+      console.error("Error fetching products:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-    const handleLoadMore = () => {
+  const handleLoadMore = () => {
+    const newCount = visibleCount + 3;
 
-        const newCount = visibleCount + 3;
+    if (newCount >= products.length) {
+      setVisibleCount(products.length);
+      setIsDone(true);
+    } else {
+      setVisibleCount(newCount);
+    }
+  };
 
-        if (newCount >= products.length) {
-            setVisibleCount(products.length);
-            setIsDone(true);
-        } else {
-            setVisibleCount(newCount);
-        }
-    };
+  const visibleProducts = products.slice(0, visibleCount);
 
-    const visibleProducts = products.slice(0, visibleCount);
-
-    return {
-        visibleProducts,
-        loading,
-        error,
-        isDone,
-        handleLoadMore,
-        products
-    };
+  return {
+    visibleProducts,
+    loading,
+    error,
+    isDone,
+    handleLoadMore,
+    products,
+  };
 };

@@ -17,7 +17,6 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 // export const { }
 
-
 const user = createSlice({
   name: "user",
   initialState: "kim",
