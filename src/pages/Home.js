@@ -4,20 +4,22 @@ import { useProductsData } from "../hooks/useProductsData.js";
 import bg from "../img/bg.png";
 
 const Home = () => {
-  const { visibleProducts, loading, error, isDone, handleLoadMore } =
+  const { visibleProducts, loading, isDone, handleLoadMore } =
     useProductsData();
 
+  // 로딩화면이랑 에러화면도 해야함
+  
   return (
-    <div className="container">
+    <main className="container overflow-y-auto">
       {/* Main Banner Section */}
       <div className="w-full h-auto py-24 flex justify-center items-center bg-[#a0b39d]">
         <img src={bg} alt="bg-img" className="h-80" />
       </div>
 
-      {/* <LastestBanner /> */}
+      <LastestBanner />
 
       {/* Products Section */}
-      <div className="w-3/5 flex flex-col justify-center items-center border border-[#9dab96] rounded-3xl p-5 gap-5 mb-5">
+      <div className="w-3/5 flex flex-col justify-center items-center border border-[#9dab96] rounded-3xl p-5 gap-5 mb-5 bg-[#a0b39d]">
         <div class="w-full grid grid-cols-3 gap-4">
           {visibleProducts.map((a, i) => (
             <Card key={i} i={i} data={a} />
@@ -38,11 +40,7 @@ const Home = () => {
           )}
         </button>
       </div>
-
-      {/* {error && (
-                <p className="text-red-500">에러 발생: {error.message}</p>
-            )} */}
-    </div>
+    </main>
   );
 };
 

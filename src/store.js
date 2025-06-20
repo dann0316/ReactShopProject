@@ -57,6 +57,13 @@ const data = createSlice({
     addCount(state, action) {
       state[action.payload].count += 1;
     },
+    reduceCount(state, action) {
+      if( state[action.payload].count > 1) {
+        state[action.payload].count -= 1;
+      } else {
+        alert('최소 수량입니다!');
+      }
+    },
     sortProduct(state, action) {
       state.sort((a, b) => {
         return a[action.payload] > b[action.payload] ? 1 : -1;
@@ -96,6 +103,7 @@ const data = createSlice({
 
 export const {
   addCount,
+  reduceCount,
   sortProduct,
   reverseSortProduct,
   addProduct,

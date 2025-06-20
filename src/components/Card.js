@@ -5,7 +5,7 @@ function Card({ data, i }) {
 
   return (
     <div
-      className="w-full border border-[#c0c9bb] p-5 rounded-3xl flex flex-col items-center justify-center gap-2 hover:border-[#6f7d68] cursor-pointer hover-transition"
+      className="w-full border border-[#c0c9bb] p-5 rounded-3xl flex flex-col items-center justify-center gap-2 hover:border-[#6f7d68] cursor-pointer hover-transition bg-white"
       onClick={() => {
         navigate(`/detail/${data.id}`);
         // localStorage에 넣어주는 것
@@ -28,7 +28,7 @@ function Card({ data, i }) {
         <img
           src={data.image}
           alt="이미지"
-          className="h-36 w-36"
+          className="max-h-36 max-w-36 w-auto h-auto min-h-5 min-w-5"
           loading="lazy"
         />
       </div>

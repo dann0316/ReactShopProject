@@ -2,45 +2,70 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LastestBanner = () => {
+
   const [watchedItems, setWatchedItems] = useState([]);
 
-  useEffect(() => {
-    const watched = JSON.parse(localStorage.getItem("watched")) || [];
-    setWatchedItems(watched);
+    useEffect(() => {
+
+    // 키가 watched인 값 변수에 넣기
+    const data = localStorage.getItem("watched");
+
+    // watched에 해당하는 값이 없다면
+    if (!data) {
+
+      // watched에 빈 배열 넣기
+      localStorage.setItem("watched", JSON.stringify([]));
+
+    // watched에 해당하는 값이 있다면
+    } else {
+
+      // try-catch
+      try {
+        // watched 해당하는 값 parse한 거 변수에 넣기
+        const parsed = JSON.parse(data);
+        
+        // parsed가 배열이면 parsed를 watchedItems에 parsed 넣기
+        if (Array.isArray(parsed)) setWatchedItems(parsed);
+      } catch (e) {
+        console.error(e)
+      }
+    }
   }, []);
 
   const removeFromWatched = (id) => {
-    const updated = watchedItems.filter((item) => item.id !== id);
+    const updated = watchedItems.filter((item) => item?.id !== id);
     localStorage.setItem("watched", JSON.stringify(updated));
-
     setWatchedItems(updated);
   };
 
   const navigate = useNavigate();
-
+  
   return (
-    <div className="latest-container">
-      <h4 className="latest-heading">최근 본 상품</h4>
+    <div className="sticky top-16 z-40 w-2/6 min-h-[2rem] border border-[#9dab96] rounded-3xl flex flex-col justify-center items-start p-5 gap-5">
+      <h4 className="text-2xl font-semibold uppercase">
+        latest products
+      </h4>
       {/* // localStorage에 내가 들어간 페이지의 id에 해당하는 상품 넣어주면 됨 */}
-      {(localStorage.getItem("watched")
-        ? JSON.parse(localStorage.getItem("watched"))
-        : []
-      ).map((item, index) => {
+      {watchedItems.map((item, i) => {
         return (
           <div
-            key={index}
-            className="latest-inner-container"
+            key={i}
+            className="w-full h-auto flex flex-row justify-between items-center border border-[#9dab96] rounded-3xl p-5 cursor-pointer gap-5"
             onClick={() => {
               navigate(`/detail/${item.id}`);
             }}
           >
-            <img src={item.img} alt="item-img" width="30%" />
-            <p>{item.title}</p>
+            <div className="h-10">
+              <img src={item?.image} alt="item-img" className="h-full w-auto object-contain" />
+            </div>
+            <p>{item?.title.length > 30
+          ? item?.title.slice(0, 30) + "..."
+          : item?.title}</p>
             <button
-              className="remove-btn"
+              className="btn hover-transition px-3 py-1"
               onClick={(e) => {
-                e.stopPropagation(); // 상위 div 클릭 방지 이거 이벤트 버블링인가
-                removeFromWatched(item.id); // ❗ 삭제 함수 실행
+                e.stopPropagation(); // 상위 div 클릭 방지 이거 이벤트 버블링인가 gpt 메모
+                removeFromWatched(item?.id);
               }}
             >
               DEL

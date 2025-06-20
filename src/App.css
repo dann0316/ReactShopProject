@@ -56,5 +56,5 @@
 }
 
 .btn {
-  @apply bg-[#9dab96] text-[white] hover:bg-white hover:text-[#9dab96] border border-[#9dab96] rounded-3xl;
+  @apply bg-[#798574] text-[white] hover:bg-white hover:text-[#9dab96] border border-[#9dab96] rounded-3xl;
 }
