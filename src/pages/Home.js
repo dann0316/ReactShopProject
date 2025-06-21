@@ -36,7 +36,7 @@ const Home = () => {
           ) : loading ? (
             <div className="animate-spin rounded-full h-8 w-8 border-4 border-t-transparent border-[#9dab96]"></div>
           ) : (
-            "Load More"
+            "load more"
           )}
         </button>
       </div>
