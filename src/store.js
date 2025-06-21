@@ -58,10 +58,10 @@ const data = createSlice({
       state[action.payload].count += 1;
     },
     reduceCount(state, action) {
-      if( state[action.payload].count > 1) {
+      if (state[action.payload].count > 1) {
         state[action.payload].count -= 1;
       } else {
-        alert('최소 수량입니다!');
+        alert("최소 수량입니다!");
       }
     },
     sortProduct(state, action) {

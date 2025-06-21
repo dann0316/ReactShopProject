@@ -5,7 +5,6 @@ import LastestBanner from "../components/LatestBanner.js";
 import { useProductsData } from "../hooks/useProductsData.js";
 import bg from "../img/bg.png";
 
-
 const Home = () => {
   const { visibleProducts, loading, error, isDone, handleLoadMore } =
     useProductsData();

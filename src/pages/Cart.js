@@ -13,7 +13,6 @@ function Cart() {
 
   return (
     <div className="container py-40">
-
       <div className="w-3/5 flex flex-row items-center gap-5">
         <button
           className="btn hover-transition px-3 py-2"
@@ -34,7 +33,6 @@ function Cart() {
       </div>
 
       <table className="w-3/5 flex flex-col gap-5">
-
         <thead className="w-full border border-[#9dab96] p-5 rounded-3xl">
           <tr className="w-full flex flex-row font-extrabold">
             <th className="w-1/12">ID</th>
@@ -49,10 +47,19 @@ function Cart() {
         <tbody className="w-full border border-[#9dab96] flex flex-col gap-5 p-5 rounded-3xl">
           {data.map((item, index) => {
             return (
-              <tr key={index} className="w-full flex flex-row border border-[#9dab96] rounded-3xl py-3">
-                <td className="w-1/12 flex justify-center items-center">{item.id}</td>
-                <td className="w-7/12 flex justify-center items-center">{item.name}</td>
-                <td className="w-1/12 flex justify-center items-center">{item.count}</td>
+              <tr
+                key={index}
+                className="w-full flex flex-row border border-[#9dab96] rounded-3xl py-3"
+              >
+                <td className="w-1/12 flex justify-center items-center">
+                  {item.id}
+                </td>
+                <td className="w-7/12 flex justify-center items-center">
+                  {item.name}
+                </td>
+                <td className="w-1/12 flex justify-center items-center">
+                  {item.count}
+                </td>
                 <td className="w-1/12 flex justify-center items-center">
                   <button
                     className="cursor-pointer"

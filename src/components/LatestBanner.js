@@ -2,32 +2,28 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LastestBanner = () => {
-
   const [watchedItems, setWatchedItems] = useState([]);
 
-    useEffect(() => {
-
+  useEffect(() => {
     // 키가 watched인 값 변수에 넣기
     const data = localStorage.getItem("watched");
 
     // watched에 해당하는 값이 없다면
     if (!data) {
-
       // watched에 빈 배열 넣기
       localStorage.setItem("watched", JSON.stringify([]));
 
-    // watched에 해당하는 값이 있다면
+      // watched에 해당하는 값이 있다면
     } else {
-
       // try-catch
       try {
         // watched 해당하는 값 parse한 거 변수에 넣기
         const parsed = JSON.parse(data);
-        
+
         // parsed가 배열이면 parsed를 watchedItems에 parsed 넣기
         if (Array.isArray(parsed)) setWatchedItems(parsed);
       } catch (e) {
-        console.error(e)
+        console.error(e);
       }
     }
   }, []);
@@ -39,12 +35,10 @@ const LastestBanner = () => {
   };
 
   const navigate = useNavigate();
-  
+
   return (
     <div className="sticky top-16 z-40 w-2/6 min-h-[2rem] border border-[#9dab96] rounded-3xl flex flex-col justify-center items-start p-5 gap-5">
-      <h4 className="text-2xl font-semibold uppercase">
-        latest products
-      </h4>
+      <h4 className="text-2xl font-semibold uppercase">latest products</h4>
       {/* // localStorage에 내가 들어간 페이지의 id에 해당하는 상품 넣어주면 됨 */}
       {watchedItems.map((item, i) => {
         return (
@@ -56,11 +50,17 @@ const LastestBanner = () => {
             }}
           >
             <div className="h-10">
-              <img src={item?.image} alt="item-img" className="h-full w-auto object-contain" />
+              <img
+                src={item?.image}
+                alt="item-img"
+                className="h-full w-auto object-contain"
+              />
             </div>
-            <p>{item?.title.length > 30
-          ? item?.title.slice(0, 30) + "..."
-          : item?.title}</p>
+            <p>
+              {item?.title.length > 30
+                ? item?.title.slice(0, 30) + "..."
+                : item?.title}
+            </p>
             <button
               className="btn hover-transition px-3 py-1"
               onClick={(e) => {
