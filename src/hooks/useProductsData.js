@@ -1,16 +1,22 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
 
+// fetchFn
 const fetchProducts = async () => {
     const res = await axios.get("https://fakestoreapi.com/products");
     return res.data;
 };
 
 export const useProductsData = () => {
+
+    // 상품 처음 보여지는 state 초기값 6
     const [visibleCount, setVisibleCount] = useState(6);
+    // 상품 더 이상 볼 거 없을 때 state
     const [isDone, setIsDone] = useState(false);
 
+    // useQuery 에서 가져오는 상태관리 항목들
+    // 캐시 키: ["products"] fetchFn: fetchProducus
     const {
         data: products = [],
         isLoading,

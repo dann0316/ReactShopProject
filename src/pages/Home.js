@@ -4,10 +4,26 @@ import { useProductsData } from "../hooks/useProductsData.js";
 import bg from "../img/bg.png";
 
 const Home = () => {
-  const { visibleProducts, loading, isDone, handleLoadMore } =
+  const { visibleProducts, loading, error, isDone, handleLoadMore } =
     useProductsData();
 
   // 로딩화면이랑 에러화면도 해야함
+
+  if(!visibleProducts && error) {
+    return (
+      <main className="container py-40">
+        <div className="text-red-600 text-4xl font-semibold">
+          {error}
+        </div>
+      </main>
+    )
+  } else if(!visibleProducts && loading) {
+    return (
+      <main className="container py-40">
+        <div className="animate-spin rounded-full h-16 w-16 border-8 border-t-transparent border-[#9dab96]"></div>
+      </main>
+    )
+  }
   
   return (
     <main className="container overflow-y-auto">
@@ -15,7 +31,7 @@ const Home = () => {
       <div className="w-full h-auto py-24 flex justify-center items-center bg-[#a0b39d]">
         <img src={bg} alt="bg-img" className="h-80" />
       </div>
-
+      
       <LastestBanner />
 
       {/* Products Section */}
