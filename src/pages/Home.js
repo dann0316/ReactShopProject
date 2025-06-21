@@ -6,18 +6,18 @@ import bg from "../img/bg.png";
 const Home = () => {
   const { visibleProducts, loading, error, isDone, handleLoadMore } =
     useProductsData();
-
-  // 로딩화면이랑 에러화면도 해야함
-
-  if(!visibleProducts && error) {
+  
+  if(error) {
     return (
       <main className="container py-40">
-        <div className="text-red-600 text-4xl font-semibold">
+        <div className="text-red-600 text-2xl font-semibold">
           {error}
         </div>
       </main>
     )
-  } else if(!visibleProducts && loading) {
+  } 
+  
+  if(loading) {
     return (
       <main className="container py-40">
         <div className="animate-spin rounded-full h-16 w-16 border-8 border-t-transparent border-[#9dab96]"></div>
