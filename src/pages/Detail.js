@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { addProduct } from "../store.js";
 import { useProductsData } from "../hooks/useProductsData.js";
 import Modal from "../components/Modal.js";
-import { useDetailData } from "../hooks/useDetailData.js";
+import { useDetailHandler } from "../hooks/useDetailHandler.js";
 import {
     Tabs,
     TabsContent,
@@ -16,7 +16,7 @@ const Detail = () => {
     // 커스텀 훅에서 products로 데이터 가져오기
     const { products } = useProductsData();
 
-    const { modal, countDown, id, userEvent } = useDetailData();
+    const { modal, countDown, id, userEvent } = useDetailHandler();
 
     // products 중 지금 디테일 페이지에 보여줌 상품 id 찾기
     const product = products.find((a) => a.id === Number(id));

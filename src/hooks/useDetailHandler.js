@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-export const useDetailData = () => {
+export const useDetailHandler = () => {
   // 할인 모달 state
   const [modal, setModal] = useState(true);
 
