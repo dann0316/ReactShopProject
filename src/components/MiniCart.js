@@ -17,3 +17,5 @@ const MiniCart = () => {
     </div>
   );
 };
+
+export default MiniCart;

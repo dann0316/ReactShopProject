@@ -4,6 +4,7 @@ import Card from "../components/Card.js";
 import LastestBanner from "../components/LatestBanner.js";
 import { useProductsData } from "../hooks/useProductsData.js";
 import bg from "../img/bg.png";
+import MiniCart from "../components/MiniCart.js";
 
 const Home = () => {
   const { visibleProducts, loading, error, isDone, handleLoadMore } =
@@ -23,6 +24,8 @@ const Home = () => {
           </div>
 
           <LastestBanner />
+
+          <MiniCart />
 
           {/* Products Section */}
           <div className="w-3/5 flex flex-col justify-center items-center border border-[#9dab96] rounded-3xl p-5 gap-5 mb-5 bg-[#a0b39d]">
