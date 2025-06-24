@@ -1,58 +1,9 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
-// import data2 from './data'
 
-// const product = createSlice({
-//   name: 'shoes',
-//   initialState: {
-//     list: data2, // 초기 데이터
-//     isDone: false,
-//     loading: false,
-//   },
-//   reducers: {
-//     addShoes: (state, action) => {
-//       state.list = [...state.list, ...action.payload];
-//     },
-//   },
-// });
-
-// export const { }
-
-const user = createSlice({
-  name: "user",
-  initialState: "kim",
-  reducers: {
-    // 함수1() {
-
-    // }
-    changeName(state, action) {
-      return "john" + state;
-    },
-  },
-});
-
-export const { changeName } = user.actions; //액션 생성자 export
-
-const stock = createSlice({
-  name: "stock",
-  initialState: [10, 11, 12],
-});
-
-// 예시 데이터
+// 장바구니 관련 state
 const data = createSlice({
   name: "data",
-  initialState: [
-    // { id: 11, name: "White and Black", count: 2 },
-    // { id: 12, name: "Grey Yordan", count: 1 },
-    // { id: 13, name: "Red Nike", count: 3 },
-    // { id: 14, name: "Blue Adidas", count: 1 },
-    // { id: 15, name: "Green Converse", count: 4 },
-    // { id: 16, name: "Yellow Puma", count: 2 },
-    // { id: 17, name: "Purple Vans", count: 1 },
-    // { id: 18, name: "Orange Reebok", count: 3 },
-    // { id: 19, name: "Black Sketchers", count: 2 },
-    // { id: 20, name: "Silver Fila", count: 1 },
-    // { id: 21, name: "Gold Asics", count: 2 },
-  ],
+  initialState: [],
   reducers: {
     addCount(state, action) {
       state[action.payload].count += 1;
@@ -112,8 +63,6 @@ export const {
 
 const store = configureStore({
   reducer: {
-    user: user.reducer,
-    stock: stock.reducer,
     data: data.reducer,
   },
 });

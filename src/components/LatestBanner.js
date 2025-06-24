@@ -37,7 +37,7 @@ const LastestBanner = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="sticky top-16 z-40 w-2/6 min-h-[2rem] border border-[#9dab96] rounded-3xl flex flex-col justify-center items-start p-5 gap-5">
+    <div className="bg-white fixed top-40 left-5 z-40 w-1/6 min-h-[2rem] border border-[#9dab96] rounded-3xl flex flex-col justify-center items-start p-5 gap-5">
       <h4 className="text-2xl font-semibold uppercase">latest products</h4>
       {/* // localStorage에 내가 들어간 페이지의 id에 해당하는 상품 넣어주면 됨 */}
       {watchedItems.map((item, i) => {
@@ -49,27 +49,29 @@ const LastestBanner = () => {
               navigate(`/detail/${item.id}`);
             }}
           >
-            <div className="h-10">
+            <div className="h-16 w-2/6 flex justify-center items-center">
               <img
                 src={item?.image}
                 alt="item-img"
                 className="h-full w-auto object-contain"
               />
             </div>
-            <p>
+            <p className="w-3/6">
               {item?.title.length > 30
                 ? item?.title.slice(0, 30) + "..."
                 : item?.title}
             </p>
-            <button
-              className="btn hover-transition px-3 py-1"
-              onClick={(e) => {
-                e.stopPropagation(); // 상위 div 클릭 방지 이거 이벤트 버블링인가 gpt 메모
-                removeFromWatched(item?.id);
-              }}
-            >
-              DEL
-            </button>
+            <div className="w-1/6">
+              <button
+                className="btn hover-transition px-2 py-1 text-sm"
+                onClick={(e) => {
+                  e.stopPropagation(); // 상위 div 클릭 방지 이거 이벤트 버블링인가 gpt 메모
+                  removeFromWatched(item?.id);
+                }}
+              >
+                DEL
+              </button>
+            </div>
           </div>
         );
       })}

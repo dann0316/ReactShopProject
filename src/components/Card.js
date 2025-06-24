@@ -26,7 +26,7 @@ function Card({ data }) {
     >
       <div className="w-full flex justify-center items-center border border-[#e1ebdc] p-10 rounded-3xl">
         <img
-          src={data.image}
+          src={data?.image}
           alt="이미지"
           className="max-h-36 max-w-36 w-auto h-auto min-h-5 min-w-5"
           loading="lazy"

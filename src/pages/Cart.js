@@ -7,7 +7,7 @@ import {
   deleteProduct,
 } from "../store.js";
 
-function Cart() {
+const Cart = () => {
   const data = useSelector((state) => state.data);
   const dispatch = useDispatch();
 

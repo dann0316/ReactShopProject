@@ -21,7 +21,6 @@ const Detail = () => {
   // products 중 지금 디테일 페이지에 보여줌 상품 id 찾기
   const product = products.find((a) => a.id === Number(id));
 
-  // ??은 뭐였지
   const productImg = product?.image;
   const productTitle = product?.title;
   const productDes = product?.description;
