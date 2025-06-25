@@ -40,7 +40,7 @@ function Card({ data }) {
         )}
       </div>
 
-      <h3 className="text-xl font-semibold text-center">
+      <h3 className="text-xl font-semibold text-center" title={data?.title}>
         {data?.title.length > 20
           ? data?.title.slice(0, 20) + "..."
           : data?.title}

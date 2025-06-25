@@ -27,7 +27,7 @@ const Home = () => {
           
           {/* Products Section */}
           <div className="w-3/5 flex flex-col justify-center items-center border border-[#9dab96] rounded-3xl p-5 gap-5 mb-5 bg-[#a0b39d]">
-            <div className="w-full grid grid-cols-3 gap-4">
+            <div className="w-full grid grid-cols-2 lg:grid-cols-3 gap-4">
               {visibleProducts.map((a, i) => (
                 <Card key={i} data={a} />
               ))}

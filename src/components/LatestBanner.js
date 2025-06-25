@@ -37,14 +37,18 @@ const LastestBanner = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-white fixed top-96 left-5 z-40 w-1/6 min-h-[2rem] border border-[#9dab96] rounded-3xl flex flex-col justify-center items-start p-5 gap-5">
-      <h4 className="text-base md:text-lx lg:text-2xl font-semibold uppercase">latest products</h4>
+    <div className="bg-white fixed top-60 left-5 z-40 w-1/6 min-h-8 max-h-96 overflow-y-auto border border-[#9dab96] rounded-3xl flex flex-col justify-start items-center pb-5 gap-5">
+      <div className="w-full sticky top-0 bg-white shadow-lg">
+        <h4 className="text-base md:text-lx lg:text-2xl font-semibold uppercase">
+          latest products
+        </h4>
+      </div>
       {/* // localStorage에 내가 들어간 페이지의 id에 해당하는 상품 넣어주면 됨 */}
       {watchedItems.map((item, i) => {
         return (
           <div
             key={i}
-            className="w-full h-auto flex flex-row justify-between items-center border border-[#9dab96] rounded-3xl p-5 cursor-pointer gap-5"
+            className="w-10/12 h-auto flex md:flex-col lx:flex-row md:justify-center lx:justify-between items-center border border-[#9dab96] rounded-3xl md:p-3 lx:p-5 cursor-pointer gap-5"
             onClick={() => {
               navigate(`/detail/${item.id}`);
             }}
@@ -56,7 +60,7 @@ const LastestBanner = () => {
                 className="h-full w-auto object-contain"
               />
             </div>
-            <p className="w-3/6">
+            <p className="w-3/6 text-center">
               {item?.title.length > 30
                 ? item?.title.slice(0, 30) + "..."
                 : item?.title}

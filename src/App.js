@@ -5,6 +5,7 @@ import Detail from "./pages/Detail.js";
 import Cart from "./pages/Cart.js";
 import Home from "./pages/Home.js";
 import Header from "./components/Header.js";
+import Add from "./pages/Add";
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/detail/:id" element={<Detail />} />
-        <Route path="cart" element={<Cart />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/add" element={<Add />}/>
       </Routes>
     </div>
   );

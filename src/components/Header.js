@@ -21,6 +21,12 @@ const Header = () => {
         {data.length > 0 && (<span className="absolute -top-2 -right-7 text-red-400 text-center border border-white rounded-full text-lg px-2">{data.length}</span>)}
       </h3>
 
+      <h3 className="text-white font-extrabold text-2xl uppercase cursor-pointer hover-transition hover:text-[#525a4f]" onClick={() => {
+        navigate('/add')
+      }}>
+        add
+      </h3>
+
     </header>
   );
 };
