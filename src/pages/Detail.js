@@ -4,12 +4,6 @@ import { addProduct } from "../store.js";
 import { useProductsData } from "../hooks/useProductsData.js";
 import Modal from "../components/Modal.js";
 import { useDetailHandler } from "../hooks/useDetailHandler.js";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "../components/ui/tabs";
 import { useEffect } from "react";
 
 const Detail = () => {
@@ -117,22 +111,6 @@ const Detail = () => {
           </button>
         </div>
       </div>
-
-      <Tabs defaultValue="tab0" className="w-[400px]">
-        <TabsList>
-          <TabsTrigger
-            value="tab0"
-            className="text-2xl font-semibold px-2 py-1 border border-[#9baa95]"
-          >
-            Tab 0
-          </TabsTrigger>
-          <TabsTrigger value="tab1" className="text-2xl font-semibold">
-            Tab 1
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="tab0">Tab0 - Content0</TabsContent>
-        <TabsContent value="tab1">Tab1 - Content1</TabsContent>
-      </Tabs>
 
       {/* <Nav justify variant="tabs" defaultActiveKey="link-0">
                 <Nav.Item>

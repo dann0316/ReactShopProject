@@ -37,8 +37,8 @@ const LastestBanner = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-white fixed top-40 left-5 z-40 w-1/6 min-h-[2rem] border border-[#9dab96] rounded-3xl flex flex-col justify-center items-start p-5 gap-5">
-      <h4 className="text-2xl font-semibold uppercase">latest products</h4>
+    <div className="bg-white fixed top-96 left-5 z-40 w-1/6 min-h-[2rem] border border-[#9dab96] rounded-3xl flex flex-col justify-center items-start p-5 gap-5">
+      <h4 className="text-base md:text-lx lg:text-2xl font-semibold uppercase">latest products</h4>
       {/* // localStorage에 내가 들어간 페이지의 id에 해당하는 상품 넣어주면 됨 */}
       {watchedItems.map((item, i) => {
         return (

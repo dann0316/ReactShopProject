@@ -3,7 +3,6 @@ import ErrorMessage from "../components/ErrorMessage.js";
 import Card from "../components/Card.js";
 import LastestBanner from "../components/LatestBanner.js";
 import { useProductsData } from "../hooks/useProductsData.js";
-import bg from "../img/bg.png";
 import MainBanner from "../components/MainBanner.js";
 
 const Home = () => {
@@ -18,15 +17,14 @@ const Home = () => {
 
       {!error && !loading && (
         <>
-          {/* Main Banner Section */}
-          <div className="w-full h-auto py-24 flex justify-center items-center bg-[#a0b39d]">
-            <img src={bg} alt="bg-img" className="h-80" />
-          </div>
-
+          {/* Latest Banner Section */}
           <LastestBanner />
 
-          <MainBanner/>
-
+          {/* Main Banner Section */}
+          <div className="w-full h-auto py-24 flex justify-center items-center bg-[#a0b39d]">
+            <MainBanner/>
+          </div>
+          
           {/* Products Section */}
           <div className="w-3/5 flex flex-col justify-center items-center border border-[#9dab96] rounded-3xl p-5 gap-5 mb-5 bg-[#a0b39d]">
             <div className="w-full grid grid-cols-3 gap-4">
