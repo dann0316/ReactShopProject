@@ -1,24 +1,23 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-
-// import required modules
-import { Autoplay, Pagination } from "swiper/modules";
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "../components/ui/carousel";
 
 const MainBanner = () => {
-  return (
-    <Swiper className="bg-container" spaceBetween={50} slidesPerView={1}>
-      {Array.from({ length: 3 }).map((_, i) => {
-        return (
-          <SwiperSlide key={i} className="bg-img">
-            <img src={`./img/bg${i + 1}.png`} />
-          </SwiperSlide>
-        );
-      })}
-    </Swiper>
-  );
+    return (
+        <Carousel>
+            <CarouselContent>
+                <CarouselItem>1</CarouselItem>
+                <CarouselItem>2</CarouselItem>
+                <CarouselItem>3</CarouselItem>
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+        </Carousel>
+    );
 };
 
 export default MainBanner;
