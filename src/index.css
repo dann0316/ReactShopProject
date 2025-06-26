@@ -2,7 +2,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "tw-animate-css";
 
 /* Optional: 글로벌 스타일 설정 (실무에서 자주 등장) */
 html,
