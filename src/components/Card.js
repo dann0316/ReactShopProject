@@ -29,7 +29,7 @@ function Card({ data }) {
         <img
           src={data?.image}
           alt="이미지"
-          className={`max-h-36 max-w-36 w-auto h-auto min-h-5 min-w-5
+          className={`max-h-36 max-w-36 min-h-16 min-w-16 w-auto
             ${imgLoad ? "opacity-100" : "opacity-0"}
             `}
           loading="lazy"
@@ -40,17 +40,17 @@ function Card({ data }) {
         )}
       </div>
 
-      <h3 className="text-xl font-semibold text-center" title={data?.title}>
+      <h3 className="text-base md:text-lg lg:text-xl font-semibold text-center" title={data?.title}>
         {data?.title.length > 20
           ? data?.title.slice(0, 20) + "..."
           : data?.title}
       </h3>
-      <p>
+      <p className="text-sm md:text-base lg:text-lg text-center">
         {data?.description.length > 30
           ? data?.description.slice(0, 30) + "..."
           : data?.description}
       </p>
-      <p>{data.price} $</p>
+      <p className="text-sm md:text-base lg:text-lg text-center">{data.price} $</p>
     </div>
   );
 }

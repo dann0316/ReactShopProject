@@ -37,8 +37,8 @@ const LastestBanner = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-white fixed top-60 left-5 z-40 w-1/6 min-h-8 max-h-96 overflow-y-auto border border-[#9dab96] rounded-3xl flex flex-col justify-start items-center pb-5 gap-5">
-      <div className="w-full sticky top-0 bg-white shadow-lg">
+    <div className="bg-white sticky top-16 lg:fixed lg:top-96 lg:left-5 z-40 w-3/5 lg:w-1/6 min-h-8 max-h-96 overflow-y-auto border-2 border-[#9dab96] rounded-3xl flex flex-col justify-start items-center pb-5 gap-5">
+      <div className="w-full sticky top-0 bg-white shadow-lg text-center border-2 border-b-[#9dab96] p-2">
         <h4 className="text-base md:text-lx lg:text-2xl font-semibold uppercase">
           latest products
         </h4>
@@ -48,7 +48,7 @@ const LastestBanner = () => {
         return (
           <div
             key={i}
-            className="w-10/12 h-auto flex md:flex-col lx:flex-row md:justify-center lx:justify-between items-center border border-[#9dab96] rounded-3xl md:p-3 lx:p-5 cursor-pointer gap-5"
+            className="w-10/12 h-auto flex lg:flex-col md:flex-row md:justify-center lx:justify-between items-center border border-[#9dab96] rounded-3xl md:p-3 lx:p-5 cursor-pointer gap-5"
             onClick={() => {
               navigate(`/detail/${item.id}`);
             }}
@@ -60,9 +60,9 @@ const LastestBanner = () => {
                 className="h-full w-auto object-contain"
               />
             </div>
-            <p className="w-3/6 text-center">
-              {item?.title.length > 30
-                ? item?.title.slice(0, 30) + "..."
+            <p className="w-3/6 text-center" title={item?.title}>
+              {item?.title.length > 20
+                ? item?.title.slice(0, 20) + "..."
                 : item?.title}
             </p>
             <div className="w-1/6">

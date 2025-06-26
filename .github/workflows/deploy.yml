@@ -1,35 +1,45 @@
-# name: React CI/CD with Format, Lint, Deploy (Test아직)
+name: React CI/CD with Format, Lint, Build, and Review (Test, Deploy는 아직)
 
-# on:
-#   push:
-#     branches:
-#       - main # main 브랜치에 push될 때만 실행
+on:
+    push:
+        branches: [main]
+    pull_request:
+        types: [opened, synchronize]
 
-# jobs:
-#   build-deploy:
-#     runs-on: ubuntu-latest
+permissions:
+    contents: write
+    pull-requests: write
 
-#     steps:
-#       - name: GitHub에서 코드 내려받기
-#         uses: actions/checkout@v3
+jobs:
+    ci:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
 
-#       - name: Node 버전(18) 설치 및 설정
-#         uses: actions/setup-node@v3
-#         with:
-#           node-version: 18
+            - name: Setup Node
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18
 
-#       - name: 의존성 패키지 설치
-#         run: npm ci
+            - name: Install Dependencies
+              run: npm ci
 
-#       - name: 빌드
-#         run: npm run build
+            - name: Run Prettier
+              run: npm run format
 
-#       - name: Netlify에 배포
-#         uses: nwtgck/actions-netlify@v1.2.4
-#         with:
-#           publish-dir: ./dist
-#           production-branch: main
-#           github-token: ${{ secrets.GITHUB_TOKEN }}
-#           deploy-message: "GitHub Actions Deploy"
-#           # netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-#           # netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
+            - name: Run ESLint
+              run: npm run lint
+
+            - name: Build (only on push)
+              if: github.event_name == 'push'
+              run: npm run build
+
+            - name: Run AI Code Review (only on PR)
+              if: github.event_name == 'pull_request'
+              uses: dann0316/ai-code-reviewer@main
+              with:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+                  OPENAI_API_MODEL: "gpt-4"
+                  exclude: "**/*.json, **/*.md"

@@ -1,21 +1,22 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "react-query";
 
-// fetchFn
+// fetchFn - 상품 전체 데이터 불러오기
 const fetchProducts = async () => {
   const res = await axios.get("https://fakestoreapi.com/products");
   return res.data;
 };
 
 export const useProductsData = () => {
-  // 상품 처음 보여지는 state 초기값 6
+  // 🔹 초기 보여줄 상품 수
   const [visibleCount, setVisibleCount] = useState(6);
-  // 상품 더 이상 볼 거 없을 때 state
+  // 🔹 더 이상 보여줄 상품 없을 때
   const [isDone, setIsDone] = useState(false);
+  // 🔹 실제 렌더링할 상품 목록
+  const [visibleProducts, setVisibleProducts] = useState([]);
 
-  // useQuery 에서 가져오는 상태관리 항목들
-  // 캐시 키: ["products"] 단일 보다는 배열이 나음 연속때문인가? fetchFn: fetchProducus
+  // 🔸 react-query로 데이터 fetch
   const {
     data: products = [],
     isLoading,
@@ -23,6 +24,17 @@ export const useProductsData = () => {
     error,
   } = useQuery(["products"], fetchProducts);
 
+  // ✅ 새롭게 보여줄 상품 슬라이스 계산 (useMemo로 메모리 최적화)
+  const slicedProducts = useMemo(() => {
+    return products.slice(0, visibleCount);
+  }, [products, visibleCount]);
+
+  // ✅ 슬라이스된 상품 목록이 변경될 때만 상태 업데이트
+  useEffect(() => {
+    setVisibleProducts(slicedProducts);
+  }, [slicedProducts]);
+
+  // 🔹 상품 더 보기 핸들러
   const handleLoadMore = () => {
     const newCount = visibleCount + 3;
 
@@ -34,8 +46,7 @@ export const useProductsData = () => {
     }
   };
 
-  const visibleProducts = products.slice(0, visibleCount);
-
+  // 🔚 최종 리턴 객체
   return {
     visibleProducts,
     loading: isLoading,
