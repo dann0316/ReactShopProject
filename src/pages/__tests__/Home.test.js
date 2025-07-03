@@ -26,3 +26,19 @@ test("Home 컴포넌트가 정상 렌더링된다", () => {
     );
     expect(screen.getByText("정렬")).toBeInTheDocument();
 });
+
+
+// describe('Home 컴포넌트', ()=> {
+
+//     // 정상
+//     test("정상 렌더링", () => {
+//         render(
+//             <QueryClientProvider client={new QueryClient()}>
+//             <BrowserRouter>
+//                 <Home />
+//             </BrowserRouter>
+//         </QueryClientProvider>
+//         );
+//         expect(screen.get)
+//     })
+// })
