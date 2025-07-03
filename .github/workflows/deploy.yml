@@ -43,3 +43,5 @@ jobs:
                   OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
                   OPENAI_API_MODEL: "gpt-4"
                   exclude: "**/*.json, **/*.md"
+
+                  # deploy,test 코드 작성

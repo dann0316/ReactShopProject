@@ -1,8 +1,5 @@
 /* App.css */
 /* 실무에서는 거의 비어 있거나, 특정 컴포넌트용 CSS만 포함 */
-/* .app-container {
-  @apply p-4 max-w-7xl mx-auto;
-} */
 
 /* 또는 아예 사용 안 함 (Tailwind만 쓰는 팀에서는) */
 
