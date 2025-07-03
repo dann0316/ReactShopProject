@@ -5,7 +5,7 @@
 import "@testing-library/jest-dom";
 
 // matchMedia mock
-if (!window.matchMedia) {
+if (window.hasOwnProperty('matchMedia')) {
     window.matchMedia = function () {
         return {
             matches: false,
@@ -21,7 +21,7 @@ if (!window.matchMedia) {
 }
 
 // ResizeObserver mock
-if (!window.ResizeObserver) {
+if (window.hasOwnProperty('ResizeObserver')) {
     window.ResizeObserver = class {
         observe() {}
         unobserve() {}
@@ -30,7 +30,7 @@ if (!window.ResizeObserver) {
 }
 
 // IntersectionObserver mock
-if (!window.IntersectionObserver) {
+if (window.hasOwnProperty('IntersectionObserver')) {
     window.IntersectionObserver = class {
         observe() {}
         unobserve() {}
