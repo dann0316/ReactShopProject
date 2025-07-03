@@ -33,7 +33,7 @@ jobs:
 
             - name: 빌드 (only on push)
               if: github.event_name == 'push'
-              run: npm run Build
+              run: npm run build
 
             - name: Netlify에 배포
               uses: nwtgck/actions-netlify@v2.0
