@@ -9,14 +9,14 @@ const fetchProducts = async () => {
 };
 
 export const useProductsData = () => {
-  // 🔹 초기 보여줄 상품 수
+  // 초기 보여줄 상품 수
   const [visibleCount, setVisibleCount] = useState(6);
-  // 🔹 더 이상 보여줄 상품 없을 때
+  // 더 이상 보여줄 상품 없을 때
   const [isDone, setIsDone] = useState(false);
-  // 🔹 실제 렌더링할 상품 목록
+  // 실제 렌더링할 상품 목록
   const [visibleProducts, setVisibleProducts] = useState([]);
 
-  // 🔸 react-query로 데이터 fetch
+  // react-query로 데이터 fetch
   const {
     data: products = [],
     isLoading,
@@ -24,12 +24,12 @@ export const useProductsData = () => {
     error,
   } = useQuery(["products"], fetchProducts);
 
-  // ✅ 새롭게 보여줄 상품 슬라이스 계산 (useMemo로 메모리 최적화)
+  // 새롭게 보여줄 상품 슬라이스 계산 (useMemo로 메모리 최적화)
   const slicedProducts = useMemo(() => {
     return products.slice(0, visibleCount);
   }, [products, visibleCount]);
 
-  // ✅ 슬라이스된 상품 목록이 변경될 때만 상태 업데이트
+  // 슬라이스된 상품 목록이 변경될 때만 상태 업데이트
   useEffect(() => {
     setVisibleProducts(slicedProducts);
   }, [slicedProducts]);
@@ -46,7 +46,7 @@ export const useProductsData = () => {
     }
   };
 
-  // 🔚 최종 리턴 객체
+  // 최종 리턴 객체
   return {
     visibleProducts,
     loading: isLoading,
